@@ -79,14 +79,14 @@ int countTrack(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std
 }
 
 
-std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
+std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = time(NULL)){ //see can be changed for testing purposes
     int yStart;
     std::vector<std::vector<char>> maze;
     int end[2]; //coorodinates of where the end of the maze is (end[0] = x end[1] = y)
     std::vector< int > yRoute;
     std::vector< int > xRoute;
     int steps;
-    srand (time(NULL)); //https://stackoverflow.com/questions/7748071/same-random-numbers-every-time-i-run-the-program
+    srand (seed); //https://stackoverflow.com/questions/7748071/same-random-numbers-every-time-i-run-the-program
     char displayedChar[2] = {'#', ' '}; //array[0] location is 1 array[1] location 2 array[3] is location 3
     int repeats = -1; //so I can see the amount of failed mazes
     while(true){ //repeats until there is a suffciently long and therefore complicated route, preferably will find an alternative to this way due to performance
@@ -186,13 +186,13 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
 
 
 int main(){
-    std::cout << time(NULL) << '\n';
-    int xSize = 10;
+    time_t bTime = time(NULL);
+    int xSize = 50;
     int ySize = xSize;
     int loop = -1;
     while(true){
         loop = loop + 1;
-        std::vector<std::vector<char>> maze = mazeSolution(xSize, ySize);
+        std::vector<std::vector<char>> maze = mazeSolution(xSize, ySize, bTime + loop);
         std::cout << '\n' << loop << '\n';
     }
     //testDisplay(maze);
