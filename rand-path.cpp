@@ -56,9 +56,9 @@ std::vector<std::vector<char>> emptyMaze(int xSize, int ySize){ //creates an emp
 
 void testDisplay(std::vector<std::vector<char>> maze){
     std::string end;
-    for(int y = 0; y < maze.size(); y++){
-        for(int x = 0; x < maze[y].size(); x++){
-            end = end + maze[y][x];
+    for(int x = 0; x < maze.size(); x++){
+        for(int y = 0; y < maze[x].size(); y++){
+            end = end + maze[x][y];
         }
         end = end + '\n';
     }
@@ -94,7 +94,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
         yRoute = {};
         xRoute = {};
         maze = emptyMaze(xSize, ySize);
-        yStart = (rand() % ySize - 2) + 1; //start defaults at x = 0, can't equal ySize or 0
+        yStart = (rand() % ySize - 1) + 1; //start defaults at x = 0, can't equal ySize or 0
         yRoute.push_back(yStart); //https://stackoverflow.com/questions/755835/how-to-add-element-to-c-array
         xRoute.push_back(0);
         yRoute.push_back(yStart);
@@ -111,32 +111,36 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
         int yDir = 0; //states which direction the solution will go
         steps = 0; //counts how many steps the solution to the maze will contain
         while(true){
-            steps = steps + 1;
-            if(delay > 0){
-                delay = delay - 1;
-            }
-            int changeDir = rand() % 3;
-            maze = sideDraw(maze, xSize, ySize, xRoute, yRoute);
-            if(changeDir == 0 && delay == 0){ //probability of changing directions
-                delay = 5;
-                bool negative = rand() % 2; //deciding if the direction in the axis will be negative
-                if(xDir == 0){
-                    yDir = 0;
-                    if(negative == true){
-                        xDir = -1;
+            while (true){
+                if(delay > 0){
+                    delay = delay - 1;
+                }
+                int changeDir = rand() % 3;
+                maze = sideDraw(maze, xSize, ySize, xRoute, yRoute);
+                if(changeDir == 0 && delay == 0){ //probability of changing directions
+                    delay = 0;
+                    bool negative = rand() % 2; //deciding if the direction in the axis will be negative
+                    if(xDir == 0){
+                        yDir = 0;
+                        if(negative == true){
+                            xDir = -1;
+                        }else{
+                            xDir = 1;
+                        }
                     }else{
-                        xDir = 1;
-                    }
-                }else{
-                    xDir = 0;
-                    if(negative == true){
-                        yDir = -1;
-                    }else{
-                        yDir = 1;
+                        xDir = 0;
+                        if(negative == true){
+                            yDir = -1;
+                        }else{
+                            yDir = 1;
+                        }
                     }
                 }
+                if(xRoute[xRoute.size() - 1] + xDir >= 0 && xRoute[xRoute.size() - 1] + xDir < xSize && yRoute[yRoute.size() - 1] + yDir >= 0 && yRoute[yRoute.size() - 1] + yDir < ySize){
+                    break; //make sure track doesn't go outside the maze
+                }
             }
-
+            steps = steps + 1;
             xRoute.push_back(xRoute[xRoute.size() - 1] + xDir);
             yRoute.push_back(yRoute[yRoute.size() - 1] + yDir);
             if(xRoute[xRoute.size() - 1] == 0 || xRoute[xRoute.size() - 1] == xSize - 1 || yRoute[yRoute.size() - 1] == 0 || yRoute[yRoute.size() - 1] == ySize - 1){
@@ -146,7 +150,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
             }
 
         }
-        if(steps >= xSize){
+        if(steps > xSize){
             break;
         }else{
             xRoute.clear();
@@ -182,14 +186,15 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
 
 
 int main(){
-    int xSize = 50;
+    std::cout << time(NULL) << '\n';
+    int xSize = 10;
     int ySize = xSize;
     int loop = -1;
-    //while(true){
-        //loop = loop + 1;
+    while(true){
+        loop = loop + 1;
         std::vector<std::vector<char>> maze = mazeSolution(xSize, ySize);
-        //std::cout << '\n' << loop << '\n';
-    //}
+        std::cout << '\n' << loop << '\n';
+    }
     //testDisplay(maze);
     return 0;
 }
