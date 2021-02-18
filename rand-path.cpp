@@ -58,7 +58,7 @@ void testDisplay(std::vector<std::vector<char>> maze){
     std::string end;
     for(int y = 0; y < maze.size(); y++){
         for(int x = 0; x < maze[y].size(); x++){
-            end = end + maze[x][y];
+            end = end + maze[y][x];
         }
         end = end + '\n';
     }
@@ -88,7 +88,9 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
     int steps;
     srand (time(NULL)); //https://stackoverflow.com/questions/7748071/same-random-numbers-every-time-i-run-the-program
     char displayedChar[2] = {'#', ' '}; //array[0] location is 1 array[1] location 2 array[3] is location 3
+    int repeats = -1; //so I can see the amount of failed mazes
     while(true){ //repeats until there is a suffciently long and therefore complicated route, preferably will find an alternative to this way due to performance
+        repeats = repeats + 1;
         yRoute = {};
         xRoute = {};
         maze = emptyMaze(xSize, ySize);
@@ -144,7 +146,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
             }
 
         }
-        if(steps > xSize / 2){
+        if(steps >= xSize){
             break;
         }else{
             xRoute.clear();
@@ -174,7 +176,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
     }*/
     maze = ensureClear(maze, xRoute, yRoute);
     countTrack(maze, xRoute, yRoute);
-    std::cout << steps;
+    std::cout << steps << " steps\n" << repeats << " repeats\n";
     return maze;
 }
 
