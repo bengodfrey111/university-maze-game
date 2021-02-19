@@ -179,22 +179,17 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
         maze = sideDraw(maze, xSize, ySize, xRoute, yRoute, i);
     }*/
     maze = ensureClear(maze, xRoute, yRoute);
-    countTrack(maze, xRoute, yRoute);
-    std::cout << steps << " steps\n" << repeats << " repeats\n";
+    //countTrack(maze, xRoute, yRoute);
+    //std::cout << steps << " steps\n" << repeats << " repeats\n";
     return maze;
 }
 
 
 int main(){
     time_t bTime = time(NULL);
-    int xSize = 50;
+    int xSize = 20;
     int ySize = xSize;
-    int loop = -1;
-    while(true){
-        loop = loop + 1;
-        std::vector<std::vector<char>> maze = mazeSolution(xSize, ySize, bTime + loop);
-        std::cout << '\n' << loop << '\n';
-    }
-    //testDisplay(maze);
+    std::vector<std::vector<char>> maze = mazeSolution(xSize, ySize);
+    testDisplay(maze);
     return 0;
 }
