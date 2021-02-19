@@ -20,24 +20,24 @@ std::vector<std::vector<char>> sideDraw(std::vector<std::vector<char>> maze, int
     }
     //draws the route
     if(yRoute[i] + 1 > 0 && yRoute[i] + 1 < ySize - 1 && inArray(xRoute[i],yRoute[i] + 1, xRoute, yRoute, 1) == false){
-        maze[xRoute[i]][yRoute[i] + 1] = '#';
+        maze[yRoute[i] + 1][xRoute[i]] = '#';
     }
     if(yRoute[i] - 1 > 0 && yRoute[i] - 1 < ySize - 1 && inArray(xRoute[i],yRoute[i] - 1, xRoute, yRoute, 1) == false){
-        maze[xRoute[i]][yRoute[i] - 1] = '#';
+        maze[yRoute[i] - 1][xRoute[i]] = '#';
     }
     if(xRoute[i] + 1 > 0 && xRoute[i] + 1 < xSize - 1 && inArray(xRoute[i] + 1,yRoute[i], xRoute, yRoute, 1) == false){
-        maze[xRoute[i] + 1][yRoute[i]] = '#';
+        maze[yRoute[i]][xRoute[i] + 1] = '#';
     }
     if(xRoute[i] - 1 > 0 && xRoute[i] - 1 < xSize - 1 && inArray(xRoute[i] - 1,yRoute[yRoute.size() - 1], xRoute, yRoute, 1) == false){
-        maze[xRoute[i] - 1][yRoute[i]] = '#';
+        maze[yRoute[i]][xRoute[i] - 1] = '#';
     }
     return maze;
 }
 
 std::vector<std::vector<char>> ensureClear(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std::vector<int> yRoute){ //ensures there is a clear path
     for(int i = 0; i < xRoute.size(); i++){//xRoute is the same size as yRoute
-        if(maze[xRoute[i]][yRoute[i]] != 'e' && maze[xRoute[i]][yRoute[i]] != 's'){
-            maze[xRoute[i]][yRoute[i]] = ' ';
+        if(maze[yRoute[i]][xRoute[i]] != 'e' && maze[yRoute[i]][xRoute[i]] != 's'){
+            maze[yRoute[i]][xRoute[i]] = ' ';
         }
     }
     return maze;
@@ -56,9 +56,9 @@ std::vector<std::vector<char>> emptyMaze(int xSize, int ySize){ //creates an emp
 
 void testDisplay(std::vector<std::vector<char>> maze){
     std::string end;
-    for(int x = 0; x < maze.size(); x++){
-        for(int y = 0; y < maze[x].size(); y++){
-            end = end + maze[x][y];
+    for(int y = 0; y < maze.size(); y++){
+        for(int x = 0; x < maze[y].size(); x++){
+            end = end + maze[y][x];
         }
         end = end + '\n';
     }
@@ -163,13 +163,13 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
         for(int x = 0; x < xSize; x++){
             if(y == 0 || x == 0 || y == ySize - 1 || x == xSize - 1){
                 if(yStart == y && x == 0){
-                    maze[x][y] = 's';
+                    maze[y][x] = 's';
                 }
                 else if(end[0] == x && end[1] == y){
-                    maze[x][y] = 'e';
+                    maze[y][x] = 'e';
                 }
                 else{
-                    maze[x][y] = '#'; //maze[x][y]
+                    maze[y][x] = '#';
                 }
             }
                 
