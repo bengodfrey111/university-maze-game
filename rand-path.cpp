@@ -54,7 +54,7 @@ std::vector<std::vector<char>> emptyMaze(int xSize, int ySize){ //creates an emp
     return empty;
 }
 
-void testDisplay(std::vector<std::vector<char>> maze){
+void testDisplay(std::vector<std::vector<char>> maze){ //used for development purposes only
     std::string end;
     for(int y = 0; y < maze.size(); y++){
         for(int x = 0; x < maze[y].size(); x++){
