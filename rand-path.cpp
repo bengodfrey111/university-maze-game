@@ -181,6 +181,8 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
     maze = ensureClear(maze, xRoute, yRoute);
     //countTrack(maze, xRoute, yRoute);
     //std::cout << steps << " steps\n" << repeats << " repeats\n";
+    xRoute.clear();
+    yRoute.clear();
     return maze;
 }
 
