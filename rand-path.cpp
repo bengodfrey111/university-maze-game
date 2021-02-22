@@ -1,4 +1,4 @@
-#include <cstdlib>
+#include <cstdlib> //this file has all been created by Ben G
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -184,12 +184,29 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
     return maze;
 }
 
-
-int main(){
-    time_t bTime = time(NULL);
-    int xSize = 20;
-    int ySize = xSize;
+std::vector<std::vector<char>> mazeGeneration(int xSize, int ySize, time_t seed = time(NULL)){ //put together the maze generation
     std::vector<std::vector<char>> maze = mazeSolution(xSize, ySize);
-    testDisplay(maze);
-    return 0;
+    return maze;
+}
+
+std::vector<int> endLoc(std::vector<std::vector<char>> maze){
+    for(int y = 0; y < maze.size(); y++){
+        for(int x = 0; x < maze[y].size(); x++){
+            if(maze[y][x] == 'e'){
+                return {x, y};
+            }
+        }
+    }
+    return {-1,-1}; //-1 if it can't be found
+}
+
+std::vector<int> startLoc(std::vector<std::vector<char>> maze){
+    for(int y = 0; y < maze.size(); y++){
+        for(int x = 0; x < maze[y].size(); x++){
+            if(maze[y][x] == 's'){
+                return {x, y};
+            }
+        }
+    }
+    return {-1,-1}; //-1 if it can't be found
 }
