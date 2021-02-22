@@ -42,9 +42,9 @@ class maze{ //this class has been created by Ben G apart from some specified fun
                 if(players[0].posx == x && players[0].posy == y){
                     end = end + 'p';
                 }else if(mazeMap[y][x] == 's' || mazeMap[y][x] == 'e'){
-                    end = end + ' ';
-                }else{
                     end = end + mazeMap[y][x];
+                }else{
+                    end = end + mazeMap[y][x] ;
                 }
             }
             end = end + '\n';
@@ -54,11 +54,9 @@ class maze{ //this class has been created by Ben G apart from some specified fun
 };
 
 int main(){
-    time_t bTime = time(NULL);
-    int xSize = 10;
+    int xSize = 25;
     int ySize = xSize;
     maze currentMaze(xSize, ySize);
     currentMaze.testDisplay();
-    //std::cout << "\n" << currentMaze.playerList[0].posx;
     return 0;
 }
