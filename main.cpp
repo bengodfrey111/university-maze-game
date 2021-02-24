@@ -54,7 +54,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
 };
 
 int main(){
-    int xSize = 25;
+    int xSize = 10;
     int ySize = xSize;
     maze currentMaze(xSize, ySize);
     currentMaze.testDisplay();

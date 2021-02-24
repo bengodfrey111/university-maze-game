@@ -97,10 +97,8 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
         yStart = (rand() % ySize - 1) + 1; //start defaults at x = 0, can't equal ySize or 0
         yRoute.push_back(yStart); //https://stackoverflow.com/questions/755835/how-to-add-element-to-c-array
         xRoute.push_back(0);
-        yRoute.push_back(yStart);
-        xRoute.push_back(1);
         int randomiseDelay = rand() % 3;
-        int delay = 0;
+        int delay = 1;
         /*if(randomiseDelay == 3){
             delay = 3;
         }
@@ -136,8 +134,8 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
                         }
                     }
                 }
-                if(xRoute[xRoute.size() - 1] + xDir >= 0 && xRoute[xRoute.size() - 1] + xDir < xSize && yRoute[yRoute.size() - 1] + yDir >= 0 && yRoute[yRoute.size() - 1] + yDir < ySize){
-                    break; //make sure track doesn't go outside the maze
+                if(xRoute[xRoute.size() - 1] + xDir >= 0 && xRoute[xRoute.size() - 1] + xDir < xSize && yRoute[yRoute.size() - 1] + yDir >= 0 && yRoute[yRoute.size() - 1] + yDir < ySize && maze[yRoute[yRoute.size() - 1] + yDir][xRoute[xRoute.size() - 1] + xDir] != 's'){
+                    break; //make sure track doesn't go outside the maze or conflict with anything
                 }
             }
             steps = steps + 1;
