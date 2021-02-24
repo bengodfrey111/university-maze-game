@@ -1,4 +1,4 @@
-#include <cstdlib> //this file has all been created by Ben G
+#include <random> //this file has all been created by Ben G
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -36,7 +36,7 @@ std::vector<std::vector<char>> sideDraw(std::vector<std::vector<char>> maze, int
 
 std::vector<std::vector<char>> ensureClear(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std::vector<int> yRoute){ //ensures there is a clear path
     for(int i = 0; i < xRoute.size(); i++){//xRoute is the same size as yRoute
-        if(maze[yRoute[i]][xRoute[i]] != 'e' && maze[yRoute[i]][xRoute[i]] != 's'){
+        if(maze[yRoute[i]][xRoute[i]] != 'e' && maze[yRoute[i]][xRoute[i]] != 's' && maze[yRoute[i]][xRoute[i]] != '-'){
             maze[yRoute[i]][xRoute[i]] = ' ';
         }
     }
@@ -143,6 +143,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
             steps = steps + 1;
             xRoute.push_back(xRoute[xRoute.size() - 1] + xDir);
             yRoute.push_back(yRoute[yRoute.size() - 1] + yDir);
+            maze[yRoute[yRoute.size() - 1]][xRoute[xRoute.size() - 1]] = '-'; //so that other functions know what the clear path is (was added later so that is the reason for the redundant vectors)
             if(xRoute[xRoute.size() - 1] == 0 || xRoute[xRoute.size() - 1] == xSize - 1 || yRoute[yRoute.size() - 1] == 0 || yRoute[yRoute.size() - 1] == ySize - 1){
                 end[0] = xRoute[xRoute.size() - 1];
                 end[1] = yRoute[yRoute.size() - 1];
