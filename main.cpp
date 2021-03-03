@@ -37,6 +37,9 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     }
     void testDisplay(){ //used so it helps me to visualise the maze that is been created, final one will be completed by david
         std::string end;
+        for(int i = 0; i < 20; i++){
+            end = end + '\n';
+        }
         for(int y = 0; y < mazeMap.size(); y++){
             for(int x = 0; x < mazeMap[y].size(); x++){
                 if(players[0].posx == x && players[0].posy == y){
@@ -51,10 +54,10 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         }
         std::cout << end;
     }
-};
+    };
 
 int main(){
-    int xSize = 10;
+    int xSize = 20;
     int ySize = xSize;
     maze currentMaze(xSize, ySize);
     currentMaze.testDisplay();
