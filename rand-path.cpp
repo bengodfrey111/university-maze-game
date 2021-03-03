@@ -58,11 +58,7 @@ void testDisplay(std::vector<std::vector<char>> maze){ //used for development pu
     std::string end;
     for(int y = 0; y < maze.size(); y++){
         for(int x = 0; x < maze[y].size(); x++){
-<<<<<<< HEAD
             end = end + maze[y][x];
-=======
-            end = end + maze[x][y];
->>>>>>> master
         }
         end = end + '\n';
     }
@@ -82,18 +78,13 @@ int countTrack(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std
     return length;
 }
 
-<<<<<<< HEAD
 
 std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = time(NULL)){ //see can be changed for testing purposes
-=======
-std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
->>>>>>> master
     int yStart;
     std::vector<std::vector<char>> maze;
     int end[2]; //coorodinates of where the end of the maze is (end[0] = x end[1] = y)
     std::vector< int > yRoute;
     std::vector< int > xRoute;
-<<<<<<< HEAD
     int steps;
     srand (seed); //https://stackoverflow.com/questions/7748071/same-random-numbers-every-time-i-run-the-program
     char displayedChar[2] = {'#', ' '}; //array[0] location is 1 array[1] location 2 array[3] is location 3
@@ -108,21 +99,6 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
         xRoute.push_back(0);
         int randomiseDelay = rand() % 3;
         int delay = 1;
-=======
-    while(true){ //repeats until there is a suffciently long and therefore complicated route, preferably will find an alternative to this way due to performance
-        yRoute = {};
-        xRoute = {};
-        maze = emptyMaze(xSize, ySize);
-        char displayedChar[2] = {'#', ' '}; //array[0] location is 1 array[1] location 2 array[3] is location 3
-        srand (time(NULL)); //https://stackoverflow.com/questions/7748071/same-random-numbers-every-time-i-run-the-program
-        yStart = (rand() % ySize - 2) + 1; //start defaults at x = 0, can't equal ySize or 0
-        yRoute.push_back(yStart); //https://stackoverflow.com/questions/755835/how-to-add-element-to-c-array
-        xRoute.push_back(0);
-        yRoute.push_back(yStart);
-        xRoute.push_back(1);
-        int randomiseDelay = rand() % 3;
-        int delay = 0;
->>>>>>> master
         /*if(randomiseDelay == 3){
             delay = 3;
         }
@@ -131,7 +107,6 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
         }*/
         int xDir = 1; //states which direction the solution will go
         int yDir = 0; //states which direction the solution will go
-<<<<<<< HEAD
         steps = 0; //counts how many steps the solution to the maze will contain
         while(true){
             while (true){
@@ -173,44 +148,6 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
                 break;
             }
 
-=======
-        int steps = 0; //counts how many steps the solution to the maze will contain
-        while(true){
-            steps = steps + 1;
-            if(delay > 0){
-                delay = delay - 1;
-            }
-            int changeDir = rand() % 3;
-            maze = sideDraw(maze, xSize, ySize, xRoute, yRoute);
-            if(changeDir == 0 && delay == 0){ //probability of changing directions
-                delay = 5;
-                bool negative = rand() % 2; //deciding if the direction in the axis will be negative
-                if(xDir == 0){
-                    yDir = 0;
-                    if(negative == true){
-                        xDir = -1;
-                    }else{
-                        xDir = 1;
-                    }
-                }else{
-                    xDir = 0;
-                    if(negative == true){
-                        yDir = -1;
-                    }else{
-                        yDir = 1;
-                    }
-                }
-            }
-
-            xRoute.push_back(xRoute[xRoute.size() - 1] + xDir);
-            yRoute.push_back(yRoute[yRoute.size() - 1] + yDir);
-            if(xRoute[xRoute.size() - 1] == 0 || xRoute[xRoute.size() - 1] == xSize - 1 || yRoute[yRoute.size() - 1] == 0 || yRoute[yRoute.size() - 1] == ySize - 1){
-                end[0] = xRoute[xRoute.size() - 1];
-                end[1] = yRoute[yRoute.size() - 1];
-                break;
-            }
-
->>>>>>> master
         }
         if(steps > xSize){
             break;
@@ -241,20 +178,15 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize){
         maze = sideDraw(maze, xSize, ySize, xRoute, yRoute, i);
     }*/
     maze = ensureClear(maze, xRoute, yRoute);
-<<<<<<< HEAD
     //countTrack(maze, xRoute, yRoute);
     //std::cout << steps << " steps\n" << repeats << " repeats\n";
     xRoute.clear();
     yRoute.clear();
-=======
-    countTrack(maze, xRoute, yRoute);
->>>>>>> master
     return maze;
 }
 
 std::vector<std::vector<char>> mazeGeneration(int xSize, int ySize, time_t seed = time(NULL)){ //put together the maze generation
     std::vector<std::vector<char>> maze = mazeSolution(xSize, ySize);
-<<<<<<< HEAD
     return maze;
 }
 
@@ -278,8 +210,4 @@ std::vector<int> startLoc(std::vector<std::vector<char>> maze){
         }
     }
     return {-1,-1}; //-1 if it can't be found
-=======
-    //testDisplay(maze);
-    return 0;
->>>>>>> master
 }
