@@ -82,7 +82,7 @@ int countTrack(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std
 std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = time(NULL)){ //see can be changed for testing purposes
     int yStart;
     std::vector<std::vector<char>> maze;
-    //std::vector<std::vector<char>> eMaze = emptyMaze(xSize, ySize); // this is to create an empty maze
+    std::vector<std::vector<char>> eMaze = emptyMaze(xSize, ySize); // this is to create an empty maze
     int end[2]; //coorodinates of where the end of the maze is (end[0] = x end[1] = y)
     std::vector< int > yRoute;
     std::vector< int > xRoute;
@@ -94,7 +94,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
         repeats = repeats + 1;
         yRoute = {};
         xRoute = {};
-        maze = emptyMaze(xSize, ySize);
+        maze = eMaze;
         yStart = (rand() % ySize - 1) + 1; //start defaults at x = 0, can't equal ySize or 0
         yRoute.push_back(yStart); //https://stackoverflow.com/questions/755835/how-to-add-element-to-c-array
         xRoute.push_back(0);
