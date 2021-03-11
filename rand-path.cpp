@@ -4,6 +4,9 @@
 #include <ctime>
 #include <vector>
 
+int sqrt(int a){
+    return a * a;
+}
 
 bool inArray(int x,int y, std::vector<int> xarray, std::vector<int> yarray, int backUp = 0){ //checks if values are in an array (backUp is reducing the amount of loops)
     for(int i = 0; i < xarray.size() - backUp; i++){
@@ -81,6 +84,7 @@ int countTrack(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std
 
 std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = time(NULL)){ //see can be changed for testing purposes
     int yStart;
+    int xStart;
     std::vector<std::vector<char>> maze;
     std::vector<std::vector<char>> eMaze = emptyMaze(xSize, ySize); // this is to create an empty maze
     int end[2]; //coorodinates of where the end of the maze is (end[0] = x end[1] = y)
@@ -96,6 +100,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
         xRoute = {};
         maze = eMaze;
         yStart = (rand() % ySize - 1) + 1; //start defaults at x = 0, can't equal ySize or 0
+        xStart = 0;
         yRoute.push_back(yStart); //https://stackoverflow.com/questions/755835/how-to-add-element-to-c-array
         xRoute.push_back(0);
         int randomiseDelay = rand() % 3;
@@ -150,7 +155,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
             }
 
         }
-        if(steps > xSize){
+        if(sqrt(end[0] - xStart) + sqrt(end[1] - yStart) > sqrt(xSize)){
             break;
         }else{
             xRoute.clear();
