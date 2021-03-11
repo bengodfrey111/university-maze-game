@@ -82,6 +82,7 @@ int countTrack(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std
 std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = time(NULL)){ //see can be changed for testing purposes
     int yStart;
     std::vector<std::vector<char>> maze;
+    //std::vector<std::vector<char>> eMaze = emptyMaze(xSize, ySize); // this is to create an empty maze
     int end[2]; //coorodinates of where the end of the maze is (end[0] = x end[1] = y)
     std::vector< int > yRoute;
     std::vector< int > xRoute;
@@ -114,7 +115,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
                     delay = delay - 1;
                 }
                 int changeDir = rand() % 3;
-                maze = sideDraw(maze, xSize, ySize, xRoute, yRoute);
+                //maze = sideDraw(maze, xSize, ySize, xRoute, yRoute);
                 if(changeDir == 0 && delay == 0){ //probability of changing directions
                     delay = 0;
                     bool negative = rand() % 2; //deciding if the direction in the axis will be negative
@@ -185,12 +186,8 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
     return maze;
 }
 
-std::vector<std::vector<char>> mazeGeneration(int xSize, int ySize, time_t seed = time(NULL)){ //put together the maze generation
-    std::vector<std::vector<char>> maze = mazeSolution(xSize, ySize);
-    return maze;
-}
 
-std::vector<int> endLoc(std::vector<std::vector<char>> maze){
+std::vector<int> endLoc(std::vector<std::vector<char>> maze){ //not that efficient but easier to implement
     for(int y = 0; y < maze.size(); y++){
         for(int x = 0; x < maze[y].size(); x++){
             if(maze[y][x] == 'e'){
@@ -210,4 +207,46 @@ std::vector<int> startLoc(std::vector<std::vector<char>> maze){
         }
     }
     return {-1,-1}; //-1 if it can't be found
+}
+
+
+std::vector<std::vector<char>> deadEndPaths(int xSize, int ySize, time_t seed = time(NULL)){
+    std::vector<std::vector<char>> maze = emptyMaze(xSize, ySize);
+    char displayedChar[2] = {'#', ' '};
+    srand(seed);
+    for(int y = 0; y < ySize; y++){
+        for(int x = 0; x < xSize; x++){
+            int randomNumber = rand() % 5;
+            if(randomNumber > 1){
+                maze[y][x] = displayedChar[0];
+            }else{
+                maze[y][x] = displayedChar[1];
+            }
+        }
+    }
+    return maze;
+}
+
+std::vector<std::vector<char>> mazeFusion(std::vector<std::vector<char>> mazeSol, std::vector<std::vector<char>> deadEnd){
+    int ySize = mazeSol.size();
+    int xSize = mazeSol[ySize - 1].size();
+    std::vector<std::vector<char>> maze = emptyMaze(xSize, ySize);
+    for(int y = 0; y < ySize; y++){
+        for(int x = 0; x < xSize; x++){
+            if(mazeSol[y][x] != ' '){
+                maze[y][x] = mazeSol[y][x];
+            }else{
+                maze[y][x] = deadEnd[y][x];
+            }
+        }
+    }
+    return maze;
+
+}
+
+std::vector<std::vector<char>> mazeGeneration(int xSize, int ySize){ //put together the maze generation, seed is just to help debugging
+    std::vector<std::vector<char>> mazeSol = mazeSolution(xSize, ySize);
+    std::vector<std::vector<char>> deadEnd = deadEndPaths(xSize, ySize);
+    std::vector<std::vector<char>> maze = mazeFusion(mazeSol, deadEnd);
+    return maze;
 }

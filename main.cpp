@@ -39,7 +39,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     void Display(){ //made by David
         std::string end;
         for ( int i = 0 ; i<49 ; i++){
-         std::cout <<"\n";   
+         std::cout << "\n";   
         }
             
         for(int y = 0; y < mazeMap.size(); y++){
@@ -61,7 +61,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
 };
 
 int main(){
-    int xSize = 15;
+    int xSize = 100;
     int ySize = xSize;
     maze currentMaze(xSize, ySize);
     currentMaze.Display();
