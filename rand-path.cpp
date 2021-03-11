@@ -155,7 +155,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
             }
 
         }
-        if(sqrt(end[0] - xStart) + sqrt(end[1] - yStart) > sqrt(xSize)){
+        if(sqrt(end[0] - xStart) + sqrt(end[1] - yStart) > sqrt(xSize)){ //using pythagoras theorem to compare distance between the start and end point of the maze
             break;
         }else{
             xRoute.clear();
