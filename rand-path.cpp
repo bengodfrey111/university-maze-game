@@ -4,7 +4,7 @@
 #include <ctime>
 #include <vector>
 
-int sqrt(int a){
+int square(int a){
     return a * a;
 }
 
@@ -82,7 +82,7 @@ int countTrack(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std
 }
 
 
-std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = time(NULL)){ //see can be changed for testing purposes
+std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = time(NULL)){ //seed can be changed for testing purposes
     int yStart;
     int xStart;
     std::vector<std::vector<char>> maze;
@@ -155,7 +155,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
             }
 
         }
-        if(sqrt(end[0] - xStart) + sqrt(end[1] - yStart) > sqrt(xSize)){ //using pythagoras theorem to compare distance between the start and end point of the maze
+        if(square(end[0] - xStart) + square(end[1] - yStart) > square(xSize) && square(end[0] - xStart) + square(end[1] - yStart) >=  square(steps - xSize)){ //using pythagoras theorem to compare distance between the start and end point of the maze and to make path not loop back on itself too often
             break;
         }else{
             xRoute.clear();
