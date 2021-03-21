@@ -62,7 +62,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
 
 int main(){
     char a;
-    int xSize = 50;
+    int xSize = 100;
     int ySize = xSize;
     maze currentMaze(xSize, ySize);
     currentMaze.Display();

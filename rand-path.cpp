@@ -122,7 +122,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
                 int changeDir = rand() % 2;
                 //maze = sideDraw(maze, xSize, ySize, xRoute, yRoute);
                 if(changeDir == 0 && delay == 0){ //probability of changing directions
-                    delay = xSize / 10;
+                    delay = (rand() % (xSize / 10)) + 2;
                     bool negative = rand() % 2; //deciding if the direction in the axis will be negative
                     if(xDir == 0){
                         yDir = 0;
