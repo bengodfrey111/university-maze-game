@@ -49,7 +49,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
                 }else if(mazeMap[y][x] == 's' || mazeMap[y][x] == 'e'){
                     end = end + mazeMap[y][x] + ' ';
                 }else if(mazeMap[y][x]  == '-'){  
-                end = end + ' ' + ' ';                          
+                end = end + '-' + ' ';                          
                 }else{
                     end = end + mazeMap[y][x] + ' ';              
                 }
@@ -62,7 +62,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
 
 int main(){
     char a;
-    int xSize = 80;
+    int xSize = 50;
     int ySize = xSize;
     maze currentMaze(xSize, ySize);
     currentMaze.Display();

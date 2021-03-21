@@ -119,10 +119,10 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
                 if(delay > 0){
                     delay = delay - 1;
                 }
-                int changeDir = rand() % 3;
+                int changeDir = rand() % 2;
                 //maze = sideDraw(maze, xSize, ySize, xRoute, yRoute);
                 if(changeDir == 0 && delay == 0){ //probability of changing directions
-                    delay = 0;
+                    delay = xSize / 10;
                     bool negative = rand() % 2; //deciding if the direction in the axis will be negative
                     if(xDir == 0){
                         yDir = 0;
@@ -155,7 +155,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
             }
 
         }
-        if(square(end[0] - xStart) + square(end[1] - yStart) > square(xSize) && square(end[0] - xStart) + square(end[1] - yStart) >=  square(steps - xSize)){ //using pythagoras theorem to compare distance between the start and end point of the maze and to make path not loop back on itself too often
+        if((square(end[0] - xStart) + square(end[1] - yStart)) * 2 > square(xSize) && square(end[0] - xStart) + square(end[1] - yStart) >=  square(steps - xSize)){ //using pythagoras theorem to compare distance between the start and end point of the maze and to make path not loop back on itself too often
             break;
         }else{
             xRoute.clear();
