@@ -48,9 +48,9 @@ std::vector<std::vector<char>> ensureClear(std::vector<std::vector<char>> maze, 
 
 std::vector<std::vector<char>> emptyMaze(int xSize, int ySize){ //creates an empty maze, note I probably need to change the vectors to arrays to improve performance if it gets too slow
     std::vector<std::vector<char>> empty;
-    for(int y = 0; y < xSize; y++){
+    for(int y = 0; y < ySize; y++){
         empty.push_back({});
-        for(int x = 0; x < ySize; x++){
+        for(int x = 0; x < xSize; x++){
             empty[y].push_back(' ');
         }
     }
