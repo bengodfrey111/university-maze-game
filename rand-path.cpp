@@ -17,7 +17,7 @@ bool inArray(int x,int y, std::vector<int> xarray, std::vector<int> yarray, int 
     return false;
 }
 
-std::vector<std::vector<char>> sideDraw(std::vector<std::vector<char>> maze, int xSize, int ySize, std::vector<int> xRoute, std::vector<int> yRoute, int i = -1){ //draws the route
+std::vector<std::vector<char>> sideDraw(std::vector<std::vector<char>> maze, int xSize, int ySize, std::vector<int> xRoute, std::vector<int> yRoute, int i = -1){ //draws the route,
     if(i == -1){
         i = xRoute.size() - 1;
     }
@@ -46,7 +46,7 @@ std::vector<std::vector<char>> ensureClear(std::vector<std::vector<char>> maze, 
     return maze;
 }
 
-std::vector<std::vector<char>> emptyMaze(int xSize, int ySize){ //creates an empty maze, note I probably need to change the vectors to arrays to improve performance if it gets too slow
+std::vector<std::vector<char>> emptyMaze(int xSize, int ySize){ //creates an empty maze
     std::vector<std::vector<char>> empty;
     for(int y = 0; y < ySize; y++){
         empty.push_back({});
@@ -250,9 +250,9 @@ std::vector<std::vector<char>> mazeFusion(std::vector<std::vector<char>> mazeSol
 
 }
 
-std::vector<std::vector<char>> mazeGeneration(int xSize, int ySize){ //put together the maze generation, seed is just to help debugging
-    std::vector<std::vector<char>> mazeSol = mazeSolution(xSize, ySize);
-    std::vector<std::vector<char>> deadEnd = deadEndPaths(xSize, ySize);
+std::vector<std::vector<char>> mazeGeneration(int xSize, int ySize, time_t seed = time(NULL)){ //put together the maze generation, seed is just to help debugging
+    std::vector<std::vector<char>> mazeSol = mazeSolution(xSize, ySize, seed);
+    std::vector<std::vector<char>> deadEnd = deadEndPaths(xSize, ySize, seed);
     std::vector<std::vector<char>> maze = mazeFusion(mazeSol, deadEnd);
     return maze;
 }
