@@ -188,7 +188,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
     //std::cout << steps << " steps\n" << repeats << " repeats\n";
     xRoute.clear();
     yRoute.clear();
-    std::cout << repeats << "\n";//to see how efficient solution finder is
+    //std::cout << repeats << "\n";//to see how efficient solution finder is
     return maze;
 }
 

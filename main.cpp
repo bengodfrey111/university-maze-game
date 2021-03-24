@@ -6,6 +6,8 @@ class player{ //this class has been created by Ben G
     public:
     int posx;
     int posy;
+    char character = 'p';
+    std::string Name;
     player(int startx, int starty){
         posx = startx;
         posy = starty;
@@ -23,8 +25,6 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     int ySize;
     std::vector<player> players; //this will allow more than one player if we want more than one player (however its unlikely that would be implemented)
     char input;
-    char playercharacter = 'p';
-    std::string PlayerName;
     maze(int xSize, int ySize){
         mazeMap = mazeGeneration(xSize, ySize);
         std::vector<int> start = startLoc(mazeMap);
@@ -47,7 +47,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         for(int y = 0; y < mazeMap.size(); y++){
             for(int x = 0; x < mazeMap[y].size(); x++){
                 if(players[0].posx == x && players[0].posy == y){
-                    end = end + playercharacter + ' ';
+                    end = end + players[0].character + ' ';
                 }else if(mazeMap[y][x] == 's' || mazeMap[y][x] == 'e'){
                     end = end + mazeMap[y][x] + ' ';
                 }else if(mazeMap[y][x]  == '-'){  
@@ -67,15 +67,15 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         std::cout << "\n\n\n\t\t\t    ***************************** ";
 
         std::cout << "\n\n\n\t\t\t INTPUT FIRTS NAME OR USERNAME U WOULD LIKE TO BE REFERED TO IN THE GAME  ";
-        std::cin >> PlayerName;
+        std::cin >> players[0].Name;
 
         std::cout << "\n\n\n\t\t\t INTPUT CHARACTER TO BE REPRESENTED IN GAME";
 
         std::cout << "\n\n\n\t\t\t U CANNOT CHOOSE 'E' ";
-        std::cin >> playercharacter;
+        std::cin >> players[0].character;
 
-        std::cout << " ARE U READY " << PlayerName;
-        std::cout << " ARE U CHRACTER " << playercharacter << "ON THE MAP";
+        std::cout << " ARE U READY " << players[0].Name;
+        std::cout << " ARE U CHRACTER " << players[0].character << "ON THE MAP";
 
 
 
