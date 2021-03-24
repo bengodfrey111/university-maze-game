@@ -6,7 +6,7 @@ class player{ //this class has been created by Ben G
     public:
     int posx;
     int posy;
-    char character = 'p';
+    char character = 'p'; //defaults at p since I don't need to run welcome in that case
     std::string Name;
     player(int startx, int starty){
         posx = startx;
@@ -38,7 +38,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         players.push_back(player(startx, starty));    
     }
 
-    void Display(){ //made by David
+    void display(){ //made by David
         std::string end;
         for ( int i = 0 ; i<49 ; i++){
          std::cout << "\n";   
@@ -101,7 +101,7 @@ int main(){
     int ySize = 20;
     maze currentMaze(xSize, ySize);
     currentMaze.welcome();
-    currentMaze.Display();
+    currentMaze.display();
     std::cin >> a;
     return 0;
 }

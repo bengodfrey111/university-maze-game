@@ -17,25 +17,6 @@ bool inArray(int x,int y, std::vector<int> xarray, std::vector<int> yarray, int 
     return false;
 }
 
-std::vector<std::vector<char>> sideDraw(std::vector<std::vector<char>> maze, int xSize, int ySize, std::vector<int> xRoute, std::vector<int> yRoute, int i = -1){ //draws the route,
-    if(i == -1){
-        i = xRoute.size() - 1;
-    }
-    //draws the route
-    if(yRoute[i] + 1 > 0 && yRoute[i] + 1 < ySize - 1 && inArray(xRoute[i],yRoute[i] + 1, xRoute, yRoute, 1) == false){
-        maze[yRoute[i] + 1][xRoute[i]] = '#';
-    }
-    if(yRoute[i] - 1 > 0 && yRoute[i] - 1 < ySize - 1 && inArray(xRoute[i],yRoute[i] - 1, xRoute, yRoute, 1) == false){
-        maze[yRoute[i] - 1][xRoute[i]] = '#';
-    }
-    if(xRoute[i] + 1 > 0 && xRoute[i] + 1 < xSize - 1 && inArray(xRoute[i] + 1,yRoute[i], xRoute, yRoute, 1) == false){
-        maze[yRoute[i]][xRoute[i] + 1] = '#';
-    }
-    if(xRoute[i] - 1 > 0 && xRoute[i] - 1 < xSize - 1 && inArray(xRoute[i] - 1,yRoute[yRoute.size() - 1], xRoute, yRoute, 1) == false){
-        maze[yRoute[i]][xRoute[i] - 1] = '#';
-    }
-    return maze;
-}
 
 std::vector<std::vector<char>> ensureClear(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std::vector<int> yRoute){ //ensures there is a clear path
     for(int i = 0; i < xRoute.size(); i++){//xRoute is the same size as yRoute
