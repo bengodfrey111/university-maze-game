@@ -9,9 +9,9 @@ int square(int a){
     return a * a;
 }
 
-bool inArray(int x,int y, std::vector<int> xarray, std::vector<int> yarray, int backUp = 0){ //checks if values are in an array (backUp is reducing the amount of loops)
-    for(int i = 0; i < xarray.size() - backUp; i++){
-        if(xarray[i] == x && yarray[i] == y){
+bool inArray(int x,int y, std::vector<int> xArray, std::vector<int> yArray, int backUp = 0){ //checks if values are in an array (backUp is reducing the amount of loops)
+    for(int i = 0; i < xArray.size() - backUp; i++){
+        if(xArray[i] == x && yArray[i] == y){
             return true;
         }
     }
@@ -37,30 +37,6 @@ std::vector<std::vector<char>> emptyMaze(int xSize, int ySize){ //creates an emp
         }
     }
     return empty;
-}
-
-void testDisplay(std::vector<std::vector<char>> maze){ //used for development purposes only
-    std::string end;
-    for(int y = 0; y < maze.size(); y++){
-        for(int x = 0; x < maze[y].size(); x++){
-            end = end + maze[y][x];
-        }
-        end = end + '\n';
-    }
-    std::cout << end;
-}
-
-int countTrack(std::vector<std::vector<char>> maze, std::vector<int> xRoute, std::vector<int> yRoute){ //displays where player should go
-    std::string end;
-    int length = 0;
-    for(int i = 0; i < xRoute.size(); i++){
-        if(maze[xRoute[i]][yRoute[i]] != 'e' && maze[xRoute[i]][yRoute[i]] != 's'){
-            maze[xRoute[i]][yRoute[i]] = '-';
-            length = length + 1;
-        }
-    }
-    testDisplay(maze); //so i can see the track instead of the edges of the track
-    return length;
 }
 
 
