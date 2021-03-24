@@ -7,7 +7,7 @@ class player{ //this class has been created by Ben G
     int posx;
     int posy;
     char character = 'p'; //defaults at p since I don't need to run welcome in that case
-    std::string Name;
+    std::string name;
     player(int startx, int starty){
         posx = startx;
         posy = starty;
@@ -67,14 +67,14 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         std::cout << "\n\n\n\t\t\t    ***************************** ";
 
         std::cout << "\n\n\n\t\t\t INTPUT FIRTS NAME OR USERNAME U WOULD LIKE TO BE REFERED TO IN THE GAME  ";
-        std::cin >> players[0].Name;
+        std::cin >> players[0].name;
 
         std::cout << "\n\n\n\t\t\t INTPUT CHARACTER TO BE REPRESENTED IN GAME";
 
         std::cout << "\n\n\n\t\t\t U CANNOT CHOOSE 'E' ";
         std::cin >> players[0].character;
 
-        std::cout << " ARE U READY " << players[0].Name;
+        std::cout << " ARE U READY " << players[0].name;
         std::cout << " ARE U CHRACTER " << players[0].character << "ON THE MAP";
 
 
