@@ -1,6 +1,7 @@
 #include <vector>
 #include "rand-path.cpp"
 #include <iostream>
+#include <array>
 
 class player{ //this class has been created by Ben G
     public:
@@ -27,10 +28,10 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     char input;
     maze(int xSize, int ySize){
         mazeMap = mazeGeneration(xSize, ySize);
-        std::vector<int> start = startLoc(mazeMap);
+        std::array<int, 2> start = startLoc(mazeMap);
         startx = start[0];
         starty = start[1];
-        std::vector<int> end = endLoc(mazeMap);
+        std::array<int,2> end = endLoc(mazeMap);
         endx = end[0];
         endy = end[1];
         ySize = ySize;

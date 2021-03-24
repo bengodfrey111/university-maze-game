@@ -3,6 +3,7 @@
 #include <string>
 #include <ctime>
 #include <vector>
+#include <array>
 
 int square(int a){
     return a * a;
@@ -174,7 +175,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
 }
 
 
-std::vector<int> endLoc(std::vector<std::vector<char>> maze){ //not that efficient but easier to implement
+std::array<int,2> endLoc(std::vector<std::vector<char>> maze){ //not that efficient but easier to implement
     for(int y = 0; y < maze.size(); y++){
         for(int x = 0; x < maze[y].size(); x++){
             if(maze[y][x] == 'e'){
@@ -185,7 +186,7 @@ std::vector<int> endLoc(std::vector<std::vector<char>> maze){ //not that efficie
     return {-1,-1}; //-1 if it can't be found
 }
 
-std::vector<int> startLoc(std::vector<std::vector<char>> maze){
+std::array<int,2> startLoc(std::vector<std::vector<char>> maze){
     for(int y = 0; y < maze.size(); y++){
         for(int x = 0; x < maze[y].size(); x++){
             if(maze[y][x] == 's'){
