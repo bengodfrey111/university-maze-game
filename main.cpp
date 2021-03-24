@@ -22,6 +22,9 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     int xSize;
     int ySize;
     std::vector<player> players; //this will allow more than one player if we want more than one player (however its unlikely that would be implemented)
+    char input;
+    char playercharacter;
+    std::string PlayerName;
     maze(int xSize, int ySize){
         mazeMap = mazeGeneration(xSize, ySize);
         std::vector<int> start = startLoc(mazeMap);
@@ -32,8 +35,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         endy = end[1];
         ySize = ySize;
         xSize = xSize;
-        player playerInit(startx, starty);
-        players.push_back(playerInit);
+        players.push_back(player(startx, starty));    
     }
 
     void Display(){ //made by David
@@ -45,11 +47,11 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         for(int y = 0; y < mazeMap.size(); y++){
             for(int x = 0; x < mazeMap[y].size(); x++){
                 if(players[0].posx == x && players[0].posy == y){
-                    end = end + 'p' + ' ';
+                    end = end + playercharacter + ' ';
                 }else if(mazeMap[y][x] == 's' || mazeMap[y][x] == 'e'){
                     end = end + mazeMap[y][x] + ' ';
                 }else if(mazeMap[y][x]  == '-'){  
-                end = end + '-' + ' ';                          
+                end = end + ' ' + ' ';                          
                 }else{
                     end = end + mazeMap[y][x] + ' ';              
                 }
@@ -58,13 +60,47 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         }
         std::cout << end;
     }
+    void welcome() //made by emmanuel
+    {
+        std::cout << "\n\n\n\t\t\t    ***************************** ";
+        std::cout << "\n\n\n\t\t\t    ***     THE MAZE GAME     ***";
+        std::cout << "\n\n\n\t\t\t    ***************************** ";
+
+        std::cout << "\n\n\n\t\t\t INTPUT FIRTS NAME OR USERNAME U WOULD LIKE TO BE REFERED TO IN THE GAME  ";
+        std::cin >> PlayerName;
+
+        std::cout << "\n\n\n\t\t\t INTPUT CHARACTER TO BE REPRESENTED IN GAME";
+
+        std::cout << "\n\n\n\t\t\t U CANNOT CHOOSE 'E' ";
+        std::cin >> playercharacter;
+
+        std::cout << " ARE U READY " << PlayerName;
+        std::cout << " ARE U CHRACTER " << playercharacter << "ON THE MAP";
+
+
+
+        std::cout << "\n\n\n\n\n\t\t\t PRESS '0' TO START THE GAME";
+        std::cout << "\n\t\t\t OR PRESS ANY KEY TO EXIT";
+        std::cin >> input;
+
+        std::cout << "\n";
+        isExit();
+
+    }
+    void isExit() { //made by emmanuel
+        if (input != '0') {
+            exit(EXIT_SUCCESS);
+        }
+    }
 };
+
 
 int main(){
     char a;
-    int xSize = 50;
+    int xSize = 20;
     int ySize = 20;
     maze currentMaze(xSize, ySize);
+    currentMaze.welcome();
     currentMaze.Display();
     std::cin >> a;
     return 0;
