@@ -23,7 +23,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     int ySize;
     std::vector<player> players; //this will allow more than one player if we want more than one player (however its unlikely that would be implemented)
     char input;
-    char playercharacter;
+    char playercharacter = 'p';
     std::string PlayerName;
     maze(int xSize, int ySize){
         mazeMap = mazeGeneration(xSize, ySize);
