@@ -138,12 +138,7 @@ std::vector<std::vector<char>> mazeSolution(int xSize, int ySize, time_t seed = 
                 
         }
     }
-    /*for(int i = 0; i < xRoute.size(); i++){ //xRoute and yRoute are the same size
-        maze = sideDraw(maze, xSize, ySize, xRoute, yRoute, i);
-    }*/
     maze = ensureClear(maze, xRoute, yRoute);
-    //countTrack(maze, xRoute, yRoute);
-    //std::cout << steps << " steps\n" << repeats << " repeats\n";
     xRoute.clear();
     yRoute.clear();
     //std::cout << repeats << "\n";//to see how efficient solution finder is
