@@ -50,6 +50,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         endx = end[0];
         endy = end[1];
         players.push_back(player(startx, starty));
+        players.push_back(player(startx, starty));
         srand(time(NULL));//start Davids code
         int randPosx;
         int randPosy;
@@ -88,26 +89,36 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         for ( int i = 0 ; i<49 ; i++){
          std::cout << "\n";   
         }
-        int displayed = false;
+        bool displayed = false;
+        bool player = false;
         for(int y = 0; y < mazeMap.size(); y++){
             for(int x = 0; x < mazeMap[y].size(); x++){
+                player = false;
                 displayed = false;
                 for(int i = 0; i < barriers.size(); i++){
-                    if(x == barriers[i].posx && y == barriers[i].posy && not(players[0].posx == x && players[0].posy == y)){
-                        displayed = true;
-                        end = end + 'b' + ' ';
+                    for(int j = 0; j < players.size(); j++){
+                        if(x == barriers[i].posx && y == barriers[i].posy && not(players[0].posx == x && players[0].posy == y)){
+                            displayed = true;
+                        }
                     }
                 }
                 if(displayed == false){
-                    if(players[0].posx == x && players[0].posy == y){
-                        end = end + players[0].character + ' ';
-                    }else if(mazeMap[y][x] == 's' || mazeMap[y][x] == 'e'){
-                        end = end + mazeMap[y][x] + ' ';
-                    }else if(mazeMap[y][x]  == '-'){  
-                    end = end + ' ' + ' ';                          
-                    }else{
-                        end = end + mazeMap[y][x] + ' ';              
+                    for(int i = 0; i < players.size(); i++){
+                        if(players[i].posx == x && players[i].posy == y){
+                            end = end + players[i].character + ' ';
+                            player = true;
+                            break;
+                        }
                     }
+                    if((mazeMap[y][x] == 's' || mazeMap[y][x] == 'e') && player == false){
+                        end = end + mazeMap[y][x] + ' ';
+                    }else if(mazeMap[y][x]  == '-' && player == false){  
+                        end = end + ' ' + ' ';                     
+                    }else if(player == false){
+                        end = end + mazeMap[y][x] + ' ';     
+                     }
+                }else{
+                    end = end + 'b' + ' ';
                 }
             }
             end = end + '\n' + '\r';
@@ -142,41 +153,46 @@ class maze{ //this class has been created by Ben G apart from some specified fun
 
     }
 
-        void doMove(std::string dir) { //Benjamin A
+        void doMove(std::string dir, int p) { //Benjamin A
         //Do move
-        if (dir == "LEFT") {
-        players[0].posx--;
-        } else if (dir == "RIGHT") {
-        players[0].posx++;
-        } else if (dir == "UP") {
-        players[0].posy--;
-        } else if (dir == "DOWN") {
-        players[0].posy++;
-        }
-        //Checking if movement is allowed
-        if (players[0].posx < 0 || players[0].posy < 0 ||
-        players[0].posx >= xSize || players[0].posy >= ySize ||
-        mazeMap[players[0].posy][players[0].posx] == '#') {
-        if (!moveToStart) {
-        //Movement is taken back
-        if (dir == "LEFT") {
-        players[0].posx++;
-        } else if (dir == "RIGHT") {
-        players[0].posx--;
-        } else if (dir == "UP") {
-        players[0].posy++;
-        } else if (dir == "DOWN") {
-        players[0].posy--;
-        }
-        } else {
-        //Going to start
-        players[0].posx = startx;
-        players[0].posy = starty;
-        }
+        if(p + 1 <= players.size()){
+            if (dir == "LEFT") {
+            players[p].posx--;
+            } else if (dir == "RIGHT") {
+            players[p].posx++;
+            } else if (dir == "UP") {
+            players[p].posy--;
+            } else if (dir == "DOWN") {
+            players[p].posy++;
+            }
+            //Checking if movement is allowed
+            if (players[p].posx < 0 || players[0].posy < 0 ||
+            players[p].posx >= xSize || players[0].posy >= ySize ||
+            mazeMap[players[p].posy][players[p].posx] == '#') {
+            if (!moveToStart) {
+            //Movement is taken back
+            if (dir == "LEFT") {
+            players[p].posx++;
+            } else if (dir == "RIGHT") {
+            players[p].posx--;
+            } else if (dir == "UP") {
+            players[p].posy++;
+            } else if (dir == "DOWN") {
+            players[p].posy--;
+            }
+            } else {
+            //Going to start
+            players[p].posx = startx;
+            players[p].posy = starty;
+            }
+            }
         }
     }
 
-    void mode(char c){ //made by Ben A
+    void mode(){ //made by Ben A
+        std::cout << "Type s to set start from beginning if wall and type n to don't move if wall\n";
+        char c;
+        std::cin >> c;
         if (c == 's') {
             std::cout << "Mode set to: start from beginning if wall\n";
             moveToStart = true;
@@ -192,14 +208,24 @@ class maze{ //this class has been created by Ben G apart from some specified fun
             isExit();
         } else {
             if (c == 'a') {
-                doMove("LEFT");
+                doMove("LEFT", 0);
             } else if (c == 'd') {
-                doMove("RIGHT");
+                doMove("RIGHT", 0);
             } else if (c == 'w') {
-                doMove("UP");
+                doMove("UP", 0);
             } else if (c == 's') {
-                doMove("DOWN");
+                doMove("DOWN", 0);
             }
+            if (c == 'h') {
+                doMove("LEFT", 1);
+            } else if (c == 'k') {
+                doMove("RIGHT", 1);
+            } else if (c == 'u') {
+                doMove("UP", 1);
+            } else if (c == 'j') {
+                doMove("DOWN", 1);
+            }
+
         }
     }
     void isExit() { //made by emmanuel
