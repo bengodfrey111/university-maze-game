@@ -2,7 +2,7 @@
 #include "rand-path.cpp"
 #include <iostream>
 #include <array>
-#include<ncurses.h>
+#include <ncurses.h> //https://www.youtube.com/watch?v=i_reXgq-0pM
 
 class barrier{ //this class has been created by david
    public:
@@ -244,14 +244,14 @@ int main(){
     maze currentMaze(xSize, ySize);
     //currentMaze.welcome();
     char key_press;
+    currentMaze.display();
     initscr();
     noecho();
-    currentMaze.display();
     while((key_press = getch()) != '#'){
         currentMaze.move(key_press);
         currentMaze.barrierskip();
         currentMaze.display();
     }
-    std::cin >> a;
+    endwin();
     return 0;
 }
