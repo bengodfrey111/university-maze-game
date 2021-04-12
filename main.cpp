@@ -127,13 +127,15 @@ class maze{ //this class has been created by Ben G apart from some specified fun
                     end = end + ' ' + ' ';
                 }
             }
-            end = end + '\n' + '\r';
+            if(shadowLine(y)){
+                end = end + '\n' + '\r';
+            }
         }
         //end = end + "\nPress b for mode where when you hit # you go back to begining, press n to do nothing";
         std::cout << end;
     }
 
-    bool isShadow(int x, int y){
+    bool isShadow(int x, int y){ //determines which characters are going to be displayed
         for(int i = 0; i < players.size(); i++){
             if(square(players[i].posx - x) + square(players[i].posy - y) < square(5)){
                 return true;
@@ -142,9 +144,18 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         return false;
     }
 
-    bool shadowSquare(int x, int y){
+    bool shadowSquare(int x, int y){ //helps to determine which characters are going to turn into a space
         for(int i = 0; i < players.size(); i++){
             if(square(players[i].posx - x) < square(5) && square(players[i].posy - y) < square(5)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool shadowLine(int y){ //helps determine where a newline will happen
+        for(int i = 0; i < players.size(); i++){
+            if(square(players[i].posy - y) < square(5)){
                 return true;
             }
         }
@@ -184,14 +195,14 @@ class maze{ //this class has been created by Ben G apart from some specified fun
             std::cout << "\r\n\n\n\t\t\t U CANNOT CHOOSE '#' AND 'b' ";
             std::cin >> players[i].character;
 
-            std::cout << " ARE U READY " << players[i].name;
+            std::cout << "\n\r\t\t\t ARE U READY " << players[i].name;
             std::cout << " ARE U CHRACTER " << players[i].character << "ON THE MAP";
 
         }
 
         std::cout << "\r\n\n\n\n\n\t\t\t PRESS '0' TO START THE GAME";
         std::cout << "\r\n\t\t\t OR PRESS ANY KEY TO EXIT";
-        std::cout << "\n\rUSE KEYS wasd TO CONTROL PLAYER 1 AND uhjk TO CONTROL PLAYER 2\n\rPRESS KEY IN GAME b TO GO TO BEGINING WHEN PLAYER HITS # AND PRESS n TO DO NOTHING ";
+        std::cout << "\n\r\t\t\t USE KEYS wasd TO CONTROL PLAYER 1 AND uhjk TO CONTROL PLAYER 2\n\r\t\t\t PRESS KEY IN GAME b TO GO TO BEGINING WHEN PLAYER HITS # AND PRESS n TO DO NOTHING ";
         std::cin >> input;
         if(input != '0'){
             Exit();
