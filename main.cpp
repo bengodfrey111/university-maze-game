@@ -57,7 +57,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
             while(true){
             randPosx = (rand() % (xSize - 1)) + 1;//generates random number between and x size
             randPosy = (rand() % (ySize - 1)) + 1;
-            if (mazeMap[randPosx][randPosy] == ' '){ //if there are no # in the position of the randomly generated positions
+            if (mazeMap[randPosx][randPosy] != '#' || mazeMap[randPosx][randPosy] != 'b'){ //if there are no # in the position of the randomly generated positions
                 break ;//continue past the break else keep generating positions
             }
         }
@@ -116,7 +116,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
                         if((mazeMap[y][x] == 's' || mazeMap[y][x] == 'e') && player == false){
                             end = end + mazeMap[y][x] + ' ';
                         }else if(mazeMap[y][x]  == '-' && player == false){  
-                            end = end + ' ' + ' ';                     
+                            end = end + '-' + ' ';                     
                         }else if(player == false){
                             end = end + mazeMap[y][x] + ' ';     
                         }
@@ -267,6 +267,34 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         return false;
     }
 
+    void reset(){
+        players = {};
+        barriers = {};
+        ySize = ySize * 1.3; //just copied from the constructor
+        xSize = xSize * 1.3;
+        mazeMap = mazeGeneration(xSize, ySize);
+        std::array<int, 2> start = startLoc(mazeMap);
+        startx = start[0];
+        starty = start[1];
+        std::array<int,2> end = endLoc(mazeMap);
+        endx = end[0];
+        endy = end[1];
+        players.push_back(player(startx, starty));
+        srand(time(NULL));//start Davids code
+        int randPosx;
+        int randPosy;
+        for(int i = 0; i < 10; i++){
+            while(true){
+            randPosx = (rand() % (xSize - 1)) + 1;//generates random number between and x size
+            randPosy = (rand() % (ySize - 1)) + 1;
+            if (mazeMap[randPosx][randPosy] != '#' && mazeMap[randPosx][randPosy] != 'b'){ //if there are no # in the position of the randomly generated positions
+                break ;//continue past the break else keep generating positions
+            }
+        }
+            barriers.push_back(barrier(randPosx,randPosy));
+        } //end davids code
+    }
+
     void Exit() { //made by emmanuel
         exit(EXIT_SUCCESS);
     }
@@ -278,9 +306,9 @@ int main(){
     char a;
     int xSize = 20;
     int ySize = 20;
+    maze currentMaze(xSize, ySize);
+    currentMaze.welcome();
     while(true){
-        maze currentMaze(xSize, ySize);
-        currentMaze.welcome();
         currentMaze.display();
         char key_press;
         initscr();
@@ -291,8 +319,7 @@ int main(){
             currentMaze.barrierskip();
             currentMaze.display();
             if(currentMaze.end()){
-                xSize = xSize * 1.3;
-                ySize = ySize * 1.3;
+                currentMaze.reset();
                 break;
             }
         }
