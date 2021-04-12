@@ -57,7 +57,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
             while(true){
             randPosx = (rand() % (xSize - 1)) + 1;//generates random number between and x size
             randPosy = (rand() % (ySize - 1)) + 1;
-            if (mazeMap[randPosx][randPosy] != '#' || mazeMap[randPosx][randPosy] != 'b'){ //if there are no # in the position of the randomly generated positions
+            if (mazeMap[randPosy][randPosx] == ' '){ //if there are no # in the position of the randomly generated positions
                 break ;//continue past the break else keep generating positions
             }
         }
@@ -123,7 +123,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
                     }else{
                         end = end + 'b' + ' ';
                     }
-                }else{
+                }else if(shadowSquare(x, y)){
                     end = end + ' ' + ' ';
                 }
             }
@@ -136,6 +136,15 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     bool isShadow(int x, int y){
         for(int i = 0; i < players.size(); i++){
             if(square(players[i].posx - x) + square(players[i].posy - y) < square(5)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool shadowSquare(int x, int y){
+        for(int i = 0; i < players.size(); i++){
+            if(square(players[i].posx - x) < square(5) && square(players[i].posy - y) < square(5)){
                 return true;
             }
         }
@@ -288,7 +297,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
             while(true){
             randPosx = (rand() % (xSize - 1)) + 1;//generates random number between and x size
             randPosy = (rand() % (ySize - 1)) + 1;
-            if (mazeMap[randPosx][randPosy] != '#' && mazeMap[randPosx][randPosy] != 'b'){ //if there are no # in the position of the randomly generated positions
+            if (mazeMap[randPosy][randPosx] == ' '){ //if there are no # in the position of the randomly generated positions
                 break ;//continue past the break else keep generating positions
             }
         }
@@ -324,7 +333,7 @@ int main(){
                 break;
             }
         }
-        endwin();
     }
+    endwin();
     return 0;
 }
