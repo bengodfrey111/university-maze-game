@@ -182,6 +182,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
 
         std::cout << "\r\n\n\n\n\n\t\t\t PRESS '0' TO START THE GAME";
         std::cout << "\r\n\t\t\t OR PRESS ANY KEY TO EXIT";
+        std::cout << "\n\rUSE KEYS wasd TO CONTROL PLAYER 1 AND uhjk TO CONTROL PLAYER 2\n\rPRESS KEY IN GAME b TO GO TO BEGINING WHEN PLAYER HITS # AND PRESS n TO DO NOTHING ";
         std::cin >> input;
         if(input != '0'){
             Exit();
