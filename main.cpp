@@ -27,7 +27,7 @@ class player{ //this class has been created by Ben G
 };
 
 class maze{ //this class has been created by Ben G apart from some specified functions
-    public:
+    private:
     std::vector<std::vector<char>> mazeMap;
     int startx;
     int starty;
@@ -39,101 +39,6 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     std::vector<barrier> barriers;
     bool moveToStart = false;
     bool shadow = false;
-    maze(int _xSize, int _ySize){
-        ySize = _ySize;
-        xSize = _xSize;
-        mazeMap = mazeGeneration(xSize, ySize);
-        std::array<int, 2> start = startLoc(mazeMap);
-        startx = start[0];
-        starty = start[1];
-        std::array<int,2> end = endLoc(mazeMap);
-        endx = end[0];
-        endy = end[1];
-        players.push_back(player(startx, starty));
-        srand(time(NULL));//start Davids code
-        int randPosx;
-        int randPosy;
-        for(int i = 0; i < 10; i++){
-            while(true){
-            randPosx = (rand() % (xSize - 1)) + 1;//generates random number between and x size
-            randPosy = (rand() % (ySize - 1)) + 1;
-            if (mazeMap[randPosy][randPosx] == ' '){ //if there are no # in the position of the randomly generated positions
-                break ;//continue past the break else keep generating positions
-            }
-        }
-            barriers.push_back(barrier(randPosx,randPosy));
-        } //end davids code
-
-    }
-
-
-    void barrierskip(){// maze class Made by David
-            for(int i = 0; i < barriers.size(); i++){//initialises the number of barriers in the maze
-                for(int j = 0; j < players.size(); j++){//number of players in maze
-                if(players[j].posx == barriers[i].posx && players[j].posy == barriers[i].posy){ //if any of j number of players x&&y
-                                                                        //positions is the same as any of the i number barriers x&&y              
-                if( i + 1 == barriers.size()){
-                    players[j].posx = barriers[0].posx;
-                    players[j].posy = barriers[0].posy;
-                }else{
-                    players[j].posx = barriers[i+1].posx;
-                    players[j].posy = barriers[i+1].posy;
-                }
-                }
-                }
-            }
-    }
-
-
-    void display(){ //made by David
-        std::string end;
-        for ( int i = 0 ; i<49 ; i++){
-         std::cout << "\n";   
-        }
-        end = '\r';
-        bool displayed = false;
-        bool player = false;
-        for(int y = 0; y < mazeMap.size(); y++){
-            for(int x = 0; x < mazeMap[y].size(); x++){
-                if(isShadow(x, y) || !(shadow)){
-                    player = false;
-                    displayed = false;
-                    for(int i = 0; i < barriers.size(); i++){
-                        for(int j = 0; j < players.size(); j++){
-                            if(x == barriers[i].posx && y == barriers[i].posy && not(players[0].posx == x && players[0].posy == y)){
-                                displayed = true;
-                            }
-                        }
-                    }
-                    if(displayed == false){
-                        for(int i = 0; i < players.size(); i++){
-                            if(players[i].posx == x && players[i].posy == y){
-                                end = end + players[i].character + ' ';
-                                player = true;
-                                break;
-                            }
-                        }
-                        if((mazeMap[y][x] == 's' || mazeMap[y][x] == 'e') && player == false){
-                            end = end + mazeMap[y][x] + ' ';
-                        }else if(mazeMap[y][x]  == '-' && player == false){  
-                            end = end + '-' + ' ';                     
-                        }else if(player == false){
-                            end = end + mazeMap[y][x] + ' ';     
-                        }
-                    }else{
-                        end = end + 'b' + ' ';
-                    }
-                }else if(shadowSquare(x, y)){
-                    end = end + ' ' + ' ';
-                }
-            }
-            if(shadowLine(y) || !(shadow)){
-                end = end + '\n' + '\r';
-            }
-        }
-        //end = end + "\nPress b for mode where when you hit # you go back to begining, press n to do nothing";
-        std::cout << end;
-    }
 
     bool isShadow(int x, int y){ //made by Ben Gdetermines which characters are going to be displayed (used the equation that can allow a circle to be plotted on a graph)
         for(int i = 0; i < players.size(); i++){
@@ -160,6 +65,77 @@ class maze{ //this class has been created by Ben G apart from some specified fun
             }
         }
         return false;
+    }
+
+  
+
+        void doMove(std::string dir, int p) { //Benjamin A
+        //Do move
+        if(p + 1 <= players.size()){
+            if (dir == "LEFT") {
+            players[p].posx--;
+            } else if (dir == "RIGHT") {
+            players[p].posx++;
+            } else if (dir == "UP") {
+            players[p].posy--;
+            } else if (dir == "DOWN") {
+            players[p].posy++;
+            }
+            //Checking if movement is allowed
+            if (players[p].posx < 0 || players[0].posy < 0 ||
+            players[p].posx >= xSize || players[0].posy >= ySize ||
+            mazeMap[players[p].posy][players[p].posx] == '#') {
+            if (!moveToStart) {
+            //Movement is taken back
+            if (dir == "LEFT") {
+            players[p].posx++;
+            } else if (dir == "RIGHT") {
+            players[p].posx--;
+            } else if (dir == "UP") {
+            players[p].posy++;
+            } else if (dir == "DOWN") {
+            players[p].posy--;
+            }
+            } else {
+            //Going to start
+            players[p].posx = startx;
+            players[p].posy = starty;
+            }
+            }
+        }
+    }
+
+     void Exit() { //made by emmanuel
+        exit(EXIT_SUCCESS);
+    }
+
+    public:
+
+    maze(int _xSize, int _ySize){
+        ySize = _ySize;
+        xSize = _xSize;
+        mazeMap = mazeGeneration(xSize, ySize);
+        std::array<int, 2> start = startLoc(mazeMap);
+        startx = start[0];
+        starty = start[1];
+        std::array<int,2> end = endLoc(mazeMap);
+        endx = end[0];
+        endy = end[1];
+        players.push_back(player(startx, starty));
+        srand(time(NULL));//start Davids code
+        int randPosx;
+        int randPosy;
+        for(int i = 0; i < 10; i++){
+            while(true){
+            randPosx = (rand() % (xSize - 1)) + 1;//generates random number between and x size
+            randPosy = (rand() % (ySize - 1)) + 1;
+            if (mazeMap[randPosy][randPosx] == ' '){ //if there are no # in the position of the randomly generated positions
+                break ;//continue past the break else keep generating positions
+            }
+        }
+            barriers.push_back(barrier(randPosx,randPosy));
+        } //end davids code
+
     }
 
     void welcome() //made by emmanuel
@@ -211,50 +187,71 @@ class maze{ //this class has been created by Ben G apart from some specified fun
 
     }
 
-        void doMove(std::string dir, int p) { //Benjamin A
-        //Do move
-        if(p + 1 <= players.size()){
-            if (dir == "LEFT") {
-            players[p].posx--;
-            } else if (dir == "RIGHT") {
-            players[p].posx++;
-            } else if (dir == "UP") {
-            players[p].posy--;
-            } else if (dir == "DOWN") {
-            players[p].posy++;
+    void display(){ //made by David
+        std::string end;
+        for ( int i = 0 ; i<49 ; i++){
+         std::cout << "\n";   
+        }
+        end = '\r';
+        bool displayed = false;
+        bool player = false;
+        for(int y = 0; y < mazeMap.size(); y++){
+            for(int x = 0; x < mazeMap[y].size(); x++){
+                if(isShadow(x, y) || !(shadow)){
+                    player = false;
+                    displayed = false;
+                    for(int i = 0; i < barriers.size(); i++){
+                        for(int j = 0; j < players.size(); j++){
+                            if(x == barriers[i].posx && y == barriers[i].posy && not(players[0].posx == x && players[0].posy == y)){
+                                displayed = true;
+                            }
+                        }
+                    }
+                    if(displayed == false){
+                        for(int i = 0; i < players.size(); i++){
+                            if(players[i].posx == x && players[i].posy == y){
+                                end = end + players[i].character + ' ';
+                                player = true;
+                                break;
+                            }
+                        }
+                        if((mazeMap[y][x] == 's' || mazeMap[y][x] == 'e') && player == false){
+                            end = end + mazeMap[y][x] + ' ';
+                        }else if(mazeMap[y][x]  == '-' && player == false){  
+                            end = end + '-' + ' ';                     
+                        }else if(player == false){
+                            end = end + mazeMap[y][x] + ' ';     
+                        }
+                    }else{
+                        end = end + 'b' + ' ';
+                    }
+                }else if(shadowSquare(x, y)){
+                    end = end + ' ' + ' ';
+                }
             }
-            //Checking if movement is allowed
-            if (players[p].posx < 0 || players[0].posy < 0 ||
-            players[p].posx >= xSize || players[0].posy >= ySize ||
-            mazeMap[players[p].posy][players[p].posx] == '#') {
-            if (!moveToStart) {
-            //Movement is taken back
-            if (dir == "LEFT") {
-            players[p].posx++;
-            } else if (dir == "RIGHT") {
-            players[p].posx--;
-            } else if (dir == "UP") {
-            players[p].posy++;
-            } else if (dir == "DOWN") {
-            players[p].posy--;
-            }
-            } else {
-            //Going to start
-            players[p].posx = startx;
-            players[p].posy = starty;
-            }
+            if(shadowLine(y) || !(shadow)){
+                end = end + '\n' + '\r';
             }
         }
+        //end = end + "\nPress b for mode where when you hit # you go back to begining, press n to do nothing";
+        std::cout << end;
     }
 
-    void mode(char c){ //made by Ben A
-        if (c == 'b') {
-            std::cout << "Mode set to: start from beginning if wall\n";
-            moveToStart = true;
-        } else if (c == 'n') {
-            std::cout << "Mode set to: don't move if wall\n";
-            moveToStart = false;
-        }
+   void barrierskip(){// maze class Made by David
+            for(int i = 0; i < barriers.size(); i++){//initialises the number of barriers in the maze
+                for(int j = 0; j < players.size(); j++){//number of players in maze
+                if(players[j].posx == barriers[i].posx && players[j].posy == barriers[i].posy){ //if any of j number of players x&&y
+                                                                        //positions is the same as any of the i number barriers x&&y              
+                if( i + 1 == barriers.size()){
+                    players[j].posx = barriers[0].posx;
+                    players[j].posy = barriers[0].posy;
+                }else{
+                    players[j].posx = barriers[i+1].posx;
+                    players[j].posy = barriers[i+1].posy;
+                }
+                }
+                }
+            }
     }
 
     void move(char c){ //made by Ben A
@@ -278,8 +275,17 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         }
 
     }
+   void mode(char c){ //made by Ben A
+        if (c == 'b') {
+            std::cout << "Mode set to: start from beginning if wall\n";
+            moveToStart = true;
+        } else if (c == 'n') {
+            std::cout << "Mode set to: don't move if wall\n";
+            moveToStart = false;
+        }
+    }
 
-    bool end(){
+   bool end(){
         for(int i = 0; i < players.size(); i++){
             if(players[i].posx == endx && players[i].posy == endy){
                 return true;
@@ -289,7 +295,6 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     }
 
     void reset(){ //techincally Ben G made it but it was just copied from the constructor
-        players = {};
         barriers = {};
         ySize = ySize * 1.3; //just copied from the constructor
         xSize = xSize * 1.3;
@@ -300,7 +305,11 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         std::array<int,2> end = endLoc(mazeMap);
         endx = end[0];
         endy = end[1];
-        players.push_back(player(startx, starty));
+
+        for(int i = 0; i < players.size();i++){
+            players[i].posx = startx;
+            players[i].posy = starty;
+        }
         srand(time(NULL));//start Davids code
         int randPosx;
         int randPosy;
@@ -315,11 +324,6 @@ class maze{ //this class has been created by Ben G apart from some specified fun
             barriers.push_back(barrier(randPosx,randPosy));
         } //end davids code
     }
-
-    void Exit() { //made by emmanuel
-        exit(EXIT_SUCCESS);
-    }
-
 };
 
 
