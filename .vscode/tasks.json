@@ -32,7 +32,8 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/bin/${fileBasenameNoExtension}.exe",
-                "-static"
+                "-static",
+                "-lncurses"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

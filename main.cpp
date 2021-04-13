@@ -95,7 +95,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         bool player = false;
         for(int y = 0; y < mazeMap.size(); y++){
             for(int x = 0; x < mazeMap[y].size(); x++){
-                if(isShadow(x, y) || not(shadow)){
+                if(isShadow(x, y) || !(shadow)){
                     player = false;
                     displayed = false;
                     for(int i = 0; i < barriers.size(); i++){
@@ -127,7 +127,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
                     end = end + ' ' + ' ';
                 }
             }
-            if(shadowLine(y)){
+            if(shadowLine(y) || !(shadow)){
                 end = end + '\n' + '\r';
             }
         }
@@ -135,7 +135,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         std::cout << end;
     }
 
-    bool isShadow(int x, int y){ //determines which characters are going to be displayed
+    bool isShadow(int x, int y){ //made by Ben Gdetermines which characters are going to be displayed (used the equation that can allow a circle to be plotted on a graph)
         for(int i = 0; i < players.size(); i++){
             if(square(players[i].posx - x) + square(players[i].posy - y) < square(5)){
                 return true;
@@ -144,7 +144,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         return false;
     }
 
-    bool shadowSquare(int x, int y){ //helps to determine which characters are going to turn into a space
+    bool shadowSquare(int x, int y){ //made by Ben G helps to determine which characters are going to turn into a space
         for(int i = 0; i < players.size(); i++){
             if(square(players[i].posx - x) < square(5) && square(players[i].posy - y) < square(5)){
                 return true;
@@ -153,7 +153,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         return false;
     }
 
-    bool shadowLine(int y){ //helps determine where a newline will happen
+    bool shadowLine(int y){ //made by Ben G helps determine where a newline will happen
         for(int i = 0; i < players.size(); i++){
             if(square(players[i].posy - y) < square(5)){
                 return true;
@@ -288,7 +288,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
         return false;
     }
 
-    void reset(){
+    void reset(){ //techincally Ben G made it but it was just copied from the constructor
         players = {};
         barriers = {};
         ySize = ySize * 1.3; //just copied from the constructor
