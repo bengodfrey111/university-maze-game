@@ -234,7 +234,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
             }
         }
         //end = end + "\nPress b for mode where when you hit # you go back to begining, press n to do nothing";
-        std::cout << end;
+        std::cout << end.c_str();
     }
 
    void barrierskip(){// maze class Made by David
@@ -333,16 +333,19 @@ int main(){
     int ySize = 20;
     maze currentMaze(xSize, ySize);
     currentMaze.welcome();
+    initscr();
+    noecho();
+    curs_set(FALSE);
     while(true){
         currentMaze.display();
+        refresh();
         char key_press;
-        initscr();
-        noecho();
-        while((key_press = getch()) != '#'){
+        while(key_press = getch()){
             currentMaze.move(key_press);
             currentMaze.mode(key_press);
             currentMaze.barrierskip();
             currentMaze.display();
+            refresh();
             if(currentMaze.end()){
                 currentMaze.reset();
                 break;
