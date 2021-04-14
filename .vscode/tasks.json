@@ -9,7 +9,15 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/bin/${fileBasenameNoExtension}",
-                "-lncurses"
+                "-static",
+                "/home/user/ncurses-5.7/lib/libncurses.a",
+                "/home/user/ncurses-5.7/lib/libncurses_g.a",
+                "/home/user/ncurses-5.7/lib/libform_g.a",
+                "/home/user/ncurses-5.7/lib/libform.a",
+                "/home/user/ncurses-5.7/lib/libmenu_g.a",
+                "/home/user/ncurses-5.7/lib/libmenu_g.a",
+                "/home/user/ncurses-5.7/lib/libpanel_g.a",
+                "/home/user/ncurses-5.7/lib/libpanel.a"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -33,7 +41,7 @@
                 "-o",
                 "${fileDirname}/bin/${fileBasenameNoExtension}.exe",
                 "-static",
-                "-lncurses"
+                "/home/user/ncurses-5.7/lib/libncurses.a"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
