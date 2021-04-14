@@ -35,6 +35,8 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     int endy;
     int xSize;
     int ySize;
+    int cBar;
+    bool block = false;
     std::vector<player> players; //this will allow more than one player if we want more than one player (however its unlikely that would be implemented)
     std::vector<barrier> barriers;
     bool moveToStart = false;
@@ -238,19 +240,30 @@ class maze{ //this class has been created by Ben G apart from some specified fun
     }
 
    void barrierskip(){// maze class Made by David
+            bool end = false;
             for(int i = 0; i < barriers.size(); i++){//initialises the number of barriers in the maze
                 for(int j = 0; j < players.size(); j++){//number of players in maze
                 if(players[j].posx == barriers[i].posx && players[j].posy == barriers[i].posy){ //if any of j number of players x&&y
-                                                                        //positions is the same as any of the i number barriers x&&y              
-                if( i + 1 == barriers.size()){
+                end = true;                                                   //positions is the same as any of the i number barriers x&&y              
+                if( (i + 1 == barriers.size()) && !((i == cBar) || (block == true))){
                     players[j].posx = barriers[0].posx;
                     players[j].posy = barriers[0].posy;
-                }else{
+                    cBar = 0;
+                    break;
+                }else if(!((i == cBar) || (block == true))){
                     players[j].posx = barriers[i+1].posx;
                     players[j].posy = barriers[i+1].posy;
+                    cBar = i + 1;
+                    break;
                 }
                 }
                 }
+            }
+            if(end == true && block == true){
+                block = true;
+            }else{
+                block = false;
+                cBar = -1;
             }
     }
 
