@@ -220,7 +220,7 @@ class maze{ //this class has been created by Ben G apart from some specified fun
                         if((mazeMap[y][x] == 's' || mazeMap[y][x] == 'e') && player == false){
                             end = end + mazeMap[y][x] + ' ';
                         }else if(mazeMap[y][x]  == '-' && player == false){  
-                            end = end + '-' + ' ';                     
+                            end = end + ' ' + ' ';                     
                         }else if(player == false){
                             end = end + mazeMap[y][x] + ' ';     
                         }
