@@ -350,8 +350,8 @@ int main(){
     noecho();
     curs_set(FALSE);
     while(true){
-        currentMaze.display();
         refresh();
+        currentMaze.display();
         char key_press;
         while(key_press = getch()){
             currentMaze.move(key_press);

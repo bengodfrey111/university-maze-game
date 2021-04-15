@@ -32,8 +32,7 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/bin/${fileBasenameNoExtension}.exe",
-                "-static",
-                "/home/user/ncurses-5.7/lib/libncurses.a"
+                "-lncurses"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
