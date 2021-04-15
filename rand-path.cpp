@@ -169,7 +169,7 @@ std::array<int,2> startLoc(std::vector<std::vector<char>> maze){
 }
 
 
-std::vector<std::vector<char>> deadEndPaths(int xSize, int ySize, time_t seed = time(NULL)){
+std::vector<std::vector<char>> deadEndPaths(int xSize, int ySize, time_t seed = time(NULL)){ //randomly place # around an empty vector
     std::vector<std::vector<char>> maze = emptyMaze(xSize, ySize);
     char displayedChar[2] = {'#', ' '};
     srand(seed);
@@ -186,7 +186,7 @@ std::vector<std::vector<char>> deadEndPaths(int xSize, int ySize, time_t seed = 
     return maze;
 }
 
-std::vector<std::vector<char>> mazeFusion(std::vector<std::vector<char>> mazeSol, std::vector<std::vector<char>> deadEnd){
+std::vector<std::vector<char>> mazeFusion(std::vector<std::vector<char>> mazeSol, std::vector<std::vector<char>> deadEnd){ //fuses the two vectors preserving the route the player would travel
     int ySize = mazeSol.size();
     int xSize = mazeSol[ySize - 1].size();
     std::vector<std::vector<char>> maze = emptyMaze(xSize, ySize);
