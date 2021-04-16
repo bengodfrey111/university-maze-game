@@ -355,9 +355,9 @@ int main(){
         char key_press;
         while(key_press = getch()){
             currentMaze.move(key_press);
-            currentMaze.mode(key_press);
             currentMaze.barrierskip();
             currentMaze.display();
+            currentMaze.mode(key_press);
             refresh();
             if(currentMaze.end()){
                 currentMaze.reset();
