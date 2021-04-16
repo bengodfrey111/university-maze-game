@@ -119,7 +119,7 @@ bool completable(std::vector<std::vector<char>> maze){
 }
 
 int main(){
-    for(int i = 0; i < 100000; i++){
+    for(int i = 0; i < 10001; i++){
         std::vector<std::vector<char>> maze = mazeGeneration(30, 30, i);
         bool completed = completable(maze);
         if(completed == true){
